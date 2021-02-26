@@ -1,8 +1,8 @@
 import request from 'postman-request';
 
-const token = '<OAUTH-TOKEN>'
+const token = '<OAUTH-TOKEN>';
 
-export const search = (query, type, market, limit, offset, callback) => {
+export const search = ({ query, type, market, limit, offset }, callback) => {
     const searchURI = `https://api.spotify.com/v1/search?q=${query}&type=${type}&market=${market}&limit=${limit}&offset=${offset}`;
 
     request({
@@ -16,6 +16,8 @@ export const search = (query, type, market, limit, offset, callback) => {
     }, (err, { body } = {}) => {
         if (err) {
             callback("Unable to connect to spotify services", undefined);
+        } else if (body.error) {
+            callback(body.error, undefined);
         } else {
             callback(undefined, {
                 track: body.tracks.items[0].name,
