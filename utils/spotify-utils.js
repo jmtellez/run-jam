@@ -1,8 +1,8 @@
 import request from 'postman-request';
 
-const token = '<OAUTH-TOKEN>';
+const token = '<OAUTH-TOKEN>'
 
-export const search = ({ query, type, market, limit, offset }, callback) => {
+export const search = ({ query, type, market = 'US', limit = 1, offset = 0 }, callback) => {
     const searchURI = `https://api.spotify.com/v1/search?q=${query}&type=${type}&market=${market}&limit=${limit}&offset=${offset}`;
 
     request({
