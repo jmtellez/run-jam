@@ -8,10 +8,13 @@
 2. To install requirements use command 'pip install -r requirements.txt'
 3. To add/create requirements use command 'pip freeze > requirements.txt'
 
-
 ## TODO ##
 1. Need to pull from billboard
 2. parse results
 3. query Spotify for all
 4. sort
 5. possibly save dailies for quicker access
+
+
+## Billboard API Reference Documentation
+https://github.com/guoguo12/billboard-charts
