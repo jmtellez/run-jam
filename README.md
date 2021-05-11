@@ -9,7 +9,7 @@
 3. To add/create requirements use command 'pip freeze > requirements.txt'
 
 
-# TODO
+## TODO ##
 1. Need to pull from billboard
 2. parse results
 3. query Spotify for all
