@@ -1,12 +1,21 @@
 import billboard
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import requests
 
 spotifyURL = "https://api.spotify.com/v1/"
 chart = billboard.ChartData('hot-100')
 
 app = Flask(__name__)
-
+@app.route('/get-tracks')
+def get_tracks():    
+    #Get BPM parameter
+    bpm = request.args.get('bpm')
+    #Get Header key
+    #Get Top Tracks
+    #Start the querying of spotify API
+    #parse results
+    #return results
+    return bpm
 @app.route('/')
 def index():
     url = spotifyURL+'search/'
@@ -23,6 +32,11 @@ def index():
 def return_hot_100():
     return chart[0].title
 
+@app.route('/headers')
+def return_headers():
+    head = request.headers["test"]
+    #return "Request  Headers: \n" + str(headers)
+    return head
 def main():
     for song in chart:
         print(song.title)
