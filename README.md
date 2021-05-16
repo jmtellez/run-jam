@@ -15,7 +15,5 @@
 4. sort
 5. possibly save dailies for quicker access
 
-test
-
 ## Billboard API Reference Documentation
 https://github.com/guoguo12/billboard-charts
