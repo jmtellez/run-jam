@@ -70,3 +70,18 @@ def main():
 
 if __name__=="__main__":    
     app.run(debug=True)
+
+
+
+'''
+@app.route('/')
+def index():
+    #print(return_headers("test"))
+    #print(get_chart('hot-100'))
+    #print(chart)
+    #charts = billboard.charts(year_end=True)
+    #for chart in charts:
+    #   print(" - "+ chart)
+    #print(billboard.charts())
+    return config["bearer_token"]
+    '''
