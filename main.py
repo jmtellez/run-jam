@@ -12,6 +12,9 @@ chart_data = None
 app = Flask(__name__)
 
 #helper functions
+def get_track_id(q:str, token:str):
+    return q + " " +  token
+
 def get_header(key:str)->str:
     value = request.headers[key]
     return value
@@ -29,8 +32,7 @@ def get_tracks():
     bpm = get_header('bpm')
     #get chart data  using helper
     chart_data = get_chart_data(chart)
-    
-    print(chart_data)
+    print(get_track_id("q","token"))
     return bearer_token + chart + bpm
 
 @app.route('/')
