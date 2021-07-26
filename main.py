@@ -25,6 +25,17 @@ def get_track_id(q:str, token:str):
 
 def get_track_features(id:str, token:str):
     return "track features"
+@app.route('/create-playlist')
+def create_playlist():
+    #https://api.spotify.com/v1/users/{user_id}/playlists
+    body = {"name":"postman2","description":"described through postman","public":"false"}
+    headers = {'Authorization':'Bearer {0}'.format(config['bearer_token'])}
+    url = spotify_URL+'users/{0}/playlists'
+    url = str.format(url,"1246353086")
+    response = requests.post(url,json=body,headers=headers)
+    responseJSON=response.json
+    print(response.text)
+    return str(response.status_code)
 
 def get_header(key:str)->str:
     value = request.headers[key]
@@ -41,8 +52,9 @@ def temp_ids():
 @app.route('/get-track-ids')
 def get_track_IDs():
     #get all headers using helper
-    chart_data_with_ids = [{}]
+    chart_data_with_ids = []
     #bearer_token = get_header('token')
+    bearer_token = config['bearer_token']
     chart = get_header('chart')
     bpm = get_header('bpm')
     #get chart data  using helper
@@ -51,9 +63,8 @@ def get_track_IDs():
         temp_song = {}
         temp_song['song'] = song.title
         temp_song['artist'] = song.artist
-        temp_song['trackID'] = get_track_id(song.title, config['bearer_token'])
-        chart_data_with_ids.append(temp_song)
-        #print(get_track_id(song.title, config['bearer_token']))#,bearer_token))
+        temp_song['trackID'] = get_track_id(song.title, bearer_token)
+        chart_data_with_ids.append(temp_song)        
     print(chart_data_with_ids)
     return "emanuelzapata"
 

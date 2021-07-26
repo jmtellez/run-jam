@@ -15,6 +15,10 @@
 4. sort
 5. possibly save dailies for quicker access
 
+## SPOTIFY ENDPOINTS ##
+- Get Audio Features needed for temp - https://api.spotify.com/v1/audio-features/{id}
+- Get current User account ID - 	https://api.spotify.com/v1/me
+- 
 ## Billboard API Reference Documentation
 https://github.com/guoguo12/billboard-charts
 
