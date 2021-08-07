@@ -53,6 +53,12 @@ def index():
     print(temp['tracks']['items'][0]['id'])
     return response.json() """
 
+if(temp_song['trackID'] == None):
+            features = get_track_features(temp_song['trackID'],bearer_token)
+            temp_song['energy'] = features['energy']
+            temp_song['danceability'] = features['danceability']
+            temp_song['tempo'] = features['tempo']
+
 @app.route('/hot-100')
 def return_hot_100():
     return chart[0].title
