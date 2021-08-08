@@ -68,7 +68,16 @@ def return_headers():
     head = request.headers["test"]
     #return "Request  Headers: \n" + str(headers)
     return head
-
+@app.route('/get-tracks')
+def get_tracks():
+    #get all headers using helper
+    bearer_token = get_header('token')
+    chart = get_header('chart')
+    bpm = get_header('bpm')
+    #get chart data  using helper
+    chart_data = get_chart_data(chart)
+    print(get_track_id("q","token"))
+    return bearer_token + chart + bpm
 def main():
     #working?
     for song in chart:

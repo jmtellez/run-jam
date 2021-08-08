@@ -1,113 +1,75 @@
 #imports
 import billboard
 from flask import Flask, jsonify, request
+from flask_restx import Resource, Api
 import requests
 import json
 import time
-"""     
-    track_name:str
-    track_id:str
-    track_danceability:str
-    track_artist:str
-    track_bpm:str
-    track_tempo:str 
-"""
 
-#variables
+#Variables
 spotify_URL = "https://api.spotify.com/v1/"
-config = json.load(open('config.json'))
+config = json.load(open('config.json')) #will probably be removed later
 chart_data = None
 
-app = Flask(__name__)
-
 #helper functions
-def get_track_id(q:str, token:str):
-    url = spotify_URL+'search/'
-    params = {'q':q,'type':'track','limit':'1'}
-    headers = {'Authorization':'Bearer {0}'.format(token)}
-    response = requests.get(url,params=params,headers=headers)
-    temp = response.json()
-    try:
-        return temp['tracks']['items'][0]['id']
-    except:
-        return None
-
-def get_header(key:str)->str:
-    value = request.headers[key]
-    return value
-
-def get_chart_data(chart_name:str):
-    local_chart_data = billboard.ChartData(chart_name)
-    return local_chart_data
-
-def temp_ids():
-    return "IDS"
-
-def get_track_features(id:str, token:str):
-    if id == None:
-        return None
-    else:
-        url = spotify_URL+'audio-features/'+id
-        headers = {'Authorization':'Bearer {0}'.format(token)}
-        response = requests.get(url,headers=headers)
-        temp = response.json()
-        return temp
-
-#endpoints
-@app.route('/create-playlist')
-def create_playlist():
-    #https://api.spotify.com/v1/users/{user_id}/playlists
-    body = {"name":"postman2","description":"described through postman","public":"false"}
-    headers = {'Authorization':'Bearer {0}'.format(config['bearer_token'])}
-    url = spotify_URL+'users/{0}/playlists'
-    url = str.format(url,"1246353086")
-    response = requests.post(url,json=body,headers=headers)
-    responseJSON=response.json
-    print(response.text)
-    return str(response.status_code)
-
-@app.route('/get-track-ids')
-def get_track_IDs():
-    #get all headers using helper
-    chart_data_with_ids = []
-    #bearer_token = get_header('token')
-    bearer_token = config['bearer_token']
-    chart = get_header('chart')
-    bpm = get_header('bpm')
-    #get chart data  using helper
-    chart_data = get_chart_data(chart)
+def jsonify_chart_data(chart_data):
+    temp_chart_data = []
     for song in chart_data:
         temp_song = {}
         temp_song['song'] = song.title
         temp_song['artist'] = song.artist
-        temp_song['trackID'] = get_track_id(song.title, bearer_token)
-        chart_data_with_ids.append(temp_song)
-    chart_data_with_ids = [song for song in chart_data_with_ids if not (song['trackID'] == None)]
-    for index, song in enumerate(chart_data_with_ids):
-        features = get_track_features(song['trackID'],bearer_token)
-        time.sleep(1./250)
+        temp_chart_data.append(temp_song)
+    return temp_chart_data          
+
+def get_all_track_ids(chart_data, bearer_token):
+    url = spotify_URL+"search/"
+    for index, song in enumerate(chart_data):
+        params = {'q':song['song'],'type':'track','limit':'1'}
+        headers = {'Authorization':'Bearer {}'.format(bearer_token)}
+        response = requests.get(url,params=params,headers=headers)
+        results = response.json()
         try:
-            chart_data_with_ids[index].update({'energy':features['energy']})
-            chart_data_with_ids[index].update({'danceability':features['danceability']})
-            chart_data_with_ids[index].update({'tempo':features['tempo']})
+            chart_data[index].update({'trackID':results['tracks']['items'][0]['id']})
         except:
-            continue
-    return json.dumps(chart_data_with_ids)
+            del chart_data[index]
+    return chart_data
 
-@app.route('/get-tracks')
-def get_tracks():
-    #get all headers using helper
-    bearer_token = get_header('token')
-    chart = get_header('chart')
-    bpm = get_header('bpm')
-    #get chart data  using helper
-    chart_data = get_chart_data(chart)
-    print(get_track_id("q","token"))
-    return bearer_token + chart + bpm
+def generate_track_ids_query_string(chart_data):
+    ids = ""
+    for song in chart_data:
+        ids = ids + song['trackID'] + ","
+    return ids
 
-@app.route('/')
-def index():
-    return config["bearer_token"]
+def get_add_track_features(trackIDS, bearer_token, chart_data):
+    url = spotify_URL+'audio-features'
+    params = {'ids':trackIDS}
+    headers = {'Authorization':'Bearer {0}'.format(bearer_token)}
+    response = requests.get(url,params=params, headers=headers)
+    features = response.json()
+    for index, feature in enumerate(features['audio_features']):
+        chart_data[index].update(feature)
+    return chart_data
+
+#endpoints
+app = Flask(__name__)
+api = Api(app)
+
+@api.route('/generate-playlist')
+class Run_Jam(Resource):
+    def get(self):
+        #get all headers
+        bearer_token = request.headers['bearer_token']
+        chart_name = request.headers['chart']
+        bpm = request.headers['bpm']
+        user_ID = request.headers['user_ID']
+        #get chart data
+        chart_data = billboard.ChartData(chart_name)
+        chart_data = jsonify_chart_data(chart_data)
+        chart_data = get_all_track_ids(chart_data, bearer_token)
+        chart_data = get_add_track_features(generate_track_ids_query_string(chart_data),bearer_token,chart_data)
+        return chart_data
+
+
 
 if __name__=="__main__":    
     app.run(debug=True)
