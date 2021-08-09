@@ -78,10 +78,18 @@ def add_one_song_test(playlist_id, songURI, bearer_token):
     params = {'uris':songURI}
     response = requests.post(url, params=params, headers=headers)
 
-def populate_custom_playlist(playlist_id, chart_data, bearer_token):
+def filter_chart_data(bpm, chart_data):
+    results = []
+    for song in chart_data:
+        if song['tempo'] >= float(bpm) and song['energy'] >= .50:
+            results.append(song)
+    return results
+
+def populate_custom_playlist(playlist_id, bpm, chart_data, bearer_token):
     url = spotify_URL + 'playlists/{0}/tracks'
     url = url.format(playlist_id)
     headers = {'Authorization':'Bearer {0}'.format(bearer_token)}
+    #chart_data = filter_chart_data(bpm, chart_data)
     response = requests.post(url, json=chart_data, headers=headers)
     status_code = response.status_code
 
@@ -104,7 +112,8 @@ class Run_Jam(Resource):
         chart_data = get_add_track_features(generate_track_ids_query_string(chart_data),bearer_token,chart_data)
         #generate playlist
         playlist_info = create_custom_playlist(user_ID, bpm, chart_name, bearer_token)
-        populate_custom_playlist(playlist_info['id'], generate_uri_query_string(chart_data), bearer_token)
+        chart_data = filter_chart_data(bpm, chart_data)
+        populate_custom_playlist(playlist_info['id'], bpm, generate_uri_query_string(chart_data), bearer_token)
         return status_code
 
 @api.route('/get-all-charts')
