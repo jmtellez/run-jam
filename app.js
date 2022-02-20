@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const accounts = require('./utils/accounts');
-const dotenv = require('dotenv').config()
+const lastfm = require('./utils/lastfm');
+const axios = require('axios');
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 app.get('/', function(req,res){
     res.send("done");
@@ -10,8 +14,10 @@ app.get('/', function(req,res){
 
 app.get('/getaccounts',accounts.accounts);
 app.get('/getAccountsTwo', accounts.accountsTwo);
+app.get('/lastfm',lastfm.getTopTracks);
 
 module.exports = app.listen(port, function(){
     console.log(`Listening on port ${port}`);
     console.log(process.env.FULLNAME);
+    console.log("working");
 })

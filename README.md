@@ -1,4 +1,5 @@
-# run-jam
+
+<!-- # run-jam
 
 # Install Instructions:
 1. To setup virtual env use command, 'python -m venv env'
@@ -204,4 +205,4 @@ https://github.com/guoguo12/billboard-charts
  - reggae-albums
  - tastemaker-albums
  - world-albums
- - world-digital-song-sales
+ - world-digital-song-sales -->
