@@ -1,0 +1,95 @@
+{
+    "tracks": {
+        "href": "https://api.spotify.com/v1/search?query=taylor+swift+enchanted&type=track&offset=0&limit=1",
+        "items": [
+            {
+                "album": {
+                    "album_type": "album",
+                    "artists": [
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02"
+                            },
+                            "href": "https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02",
+                            "id": "06HL4z0CvFAxyc27GXpf02",
+                            "name": "Taylor Swift",
+                            "type": "artist",
+                            "uri": "spotify:artist:06HL4z0CvFAxyc27GXpf02"
+                        }
+                    ],
+                    "available_markets": [
+                        "CA",
+                        "US"
+                    ],
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/album/5MfAxS5zz8MlfROjGQVXhy"
+                    },
+                    "href": "https://api.spotify.com/v1/albums/5MfAxS5zz8MlfROjGQVXhy",
+                    "id": "5MfAxS5zz8MlfROjGQVXhy",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273e11a75a2f2ff39cec788a015",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02e11a75a2f2ff39cec788a015",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851e11a75a2f2ff39cec788a015",
+                            "width": 64
+                        }
+                    ],
+                    "name": "Speak Now",
+                    "release_date": "2010-10-25",
+                    "release_date_precision": "day",
+                    "total_tracks": 14,
+                    "type": "album",
+                    "uri": "spotify:album:5MfAxS5zz8MlfROjGQVXhy"
+                },
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02",
+                        "id": "06HL4z0CvFAxyc27GXpf02",
+                        "name": "Taylor Swift",
+                        "type": "artist",
+                        "uri": "spotify:artist:06HL4z0CvFAxyc27GXpf02"
+                    }
+                ],
+                "available_markets": [
+                    "CA",
+                    "US"
+                ],
+                "disc_number": 1,
+                "duration_ms": 352186,
+                "explicit": false,
+                "external_ids": {
+                    "isrc": "USCJY1003663"
+                },
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/track/10eBRyImhfqVvkiVEGf0N0"
+                },
+                "href": "https://api.spotify.com/v1/tracks/10eBRyImhfqVvkiVEGf0N0",
+                "id": "10eBRyImhfqVvkiVEGf0N0",
+                "is_local": false,
+                "name": "Enchanted",
+                "popularity": 78,
+                "preview_url": null,
+                "track_number": 9,
+                "type": "track",
+                "uri": "spotify:track:10eBRyImhfqVvkiVEGf0N0"
+            }
+        ],
+        "limit": 1,
+        "next": "https://api.spotify.com/v1/search?query=taylor+swift+enchanted&type=track&offset=1&limit=1",
+        "offset": 0,
+        "previous": null,
+        "total": 46
+    }
+}
