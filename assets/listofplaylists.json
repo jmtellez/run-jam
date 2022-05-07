@@ -1,0 +1,46 @@
+{
+    "href": "https://api.spotify.com/v1/users/spotify/playlists?offset=0&limit=1",
+    "items": [
+      {
+        "collaborative": false,
+        "description": "Bad Bunny is on top of the Hottest 50!",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXcBWIGoYBM5M",
+        "id": "37i9dQZF1DXcBWIGoYBM5M",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f00000003bc991adbd550d8c38e42b3b9",
+            "width": null
+          }
+        ],
+        "name": "Today's Top Hits",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": true,
+        "snapshot_id": "MTY1MTg5NjAwMCwwMDAwMDUzYjAwMDAwMTgwOWNhYzllZDEwMDAwMDE4MDk2NzA0ZmU2",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXcBWIGoYBM5M/tracks",
+          "total": 50
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"
+      }
+    ],
+    "limit": 1,
+    "next": "https://api.spotify.com/v1/users/spotify/playlists?offset=1&limit=1",
+    "offset": 0,
+    "previous": null,
+    "total": 1196
+  }
