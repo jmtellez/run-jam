@@ -1,7 +1,7 @@
 import billboard
 
 class Billboard:
-    song_list = []
+    __song_list = []
     
     def __init__(self, chart_name):
         self.chart_name = chart_name
@@ -11,7 +11,7 @@ class Billboard:
                 "title":song.title,
                 "artist":song.artist
             }
-            self.song_list.append(new_song)
+            self.__song_list.append(new_song)
                 
     def get_chart_data(self):
-        return self.song_list
+        return self.__song_list

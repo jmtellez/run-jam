@@ -21,14 +21,22 @@ class Spotify:
             data={"grant_type":"client_credentials"},
             headers={"Authorization":"Basic {base64_message}".format(base64_message=base64_message)}
             )
-        print(response.json())
-        print(response.json()['access_token'])
+        return response.json()['access_token']
     
-    def search_for_song(self):
+    def search_for_song(self, song):
         spotify_search_url = os.environ.get("SPOTIFY_SEARCH_URL")
+        access_token = self.get_access_token()
         response = requests.get(
             spotify_search_url,
-            headers={"Authorization":"Bearer {bearer_token}".format(bearer_token=self.bearer_token)},
-            params={"q":"track:Welcome to new york: artist: Taylor Swift","type":"track"}
+            headers={"Authorization":"Bearer {bearer_token}".format(bearer_token=access_token)},
+            params={"q":"track:{title}: artist:{artist}".format(title=song['title'], artist=song['artist']),"type":"track","limit":1}
         )
+        return response
         # print(response.json())
+    
+    def filter_song_list(self, song_list):
+        filtered_list = []
+        for song in song_list:
+            if song['tracks']['total']!=0:
+                filtered_list.append(song)
+        return filtered_list
